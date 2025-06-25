@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import CartPage from './pages/CartPage'
+import './index.css'
 
-// 🧾 Initial Product Inventory
 const initialProducts = [
   {
     id: 1,
@@ -49,92 +52,57 @@ const initialProducts = [
 const App = () => {
   const [cart, setCart] = useState([])
 
-  // 🛒 Adds an available item to the cart
   const handleAddToCart = (product) => {
-    if (product.available) {
+    if (product.available && !cart.some(item => item.id === product.id)) {
       setCart([...cart, product])
     }
   }
 
-  // 💰 Calculates total price of items in the cart
   const getTotalPrice = () => cart.reduce((sum, item) => sum + item.price, 0)
 
   return (
-    <div>
-      {/* 🔹 Header with Cart Overview */}
-      <header
-        style={{
-          background: '#003366',
-          color: '#fff',
-          padding: '15px 20px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <h2>🛍️ Customer Dashboard</h2>
-        <div style={{ textAlign: 'right' }}>
-          <div>
-            🛒 {cart.length} item{cart.length !== 1 ? 's' : ''}
-          </div>
-          <div>Ksh {getTotalPrice().toLocaleString()}</div>
-        </div>
-      </header>
+    <Router>
+      <Header cart={cart} total={getTotalPrice()} />
 
-      {/* 🔸 Main Content */}
-      <main style={{ padding: '20px', fontFamily: 'Arial' }}>
-        <h3>🛒 Available Products</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          {initialProducts.map((item) => (
-            <li
-              key={item.id}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '16px',
-                borderBottom: '1px solid #ccc',
-                paddingBottom: '10px',
-              }}
-            >
-              {/* Product Thumbnail */}
-              <img
-                src={item.image}
-                alt={item.name}
-                style={{
-                  width: '100px',
-                  height: '60px',
-                  marginRight: '15px',
-                  borderRadius: '4px',
-                }}
-              />
-
-              {/* Product Info and Button */}
-              <div>
-                <strong>{item.name}</strong>
-                <br />
-                Price: Ksh {item.price.toLocaleString()}
-                <br />
-                <button
-                  onClick={() => handleAddToCart(item)}
-                  disabled={!item.available}
-                  style={{
-                    padding: '6px 12px',
-                    marginTop: '5px',
-                    cursor: item.available ? 'pointer' : 'not-allowed',
-                    backgroundColor: item.available ? '#007bff' : '#ccc',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '4px',
-                  }}
-                >
-                  {item.available ? 'Add to Cart' : 'Sold Out'}
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </main>
-    </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main className="main-content">
+              <h3>Available Products</h3>
+              <ul className="product-list">
+                {initialProducts.map((item) => (
+                  <li key={item.id} className="product-item">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="product-image"
+                    />
+                    <div>
+                      <strong>{item.name}</strong>
+                      <br />
+                      Price: Ksh {item.price.toLocaleString()}
+                      <br />
+                      <button
+                        onClick={() => handleAddToCart(item)}
+                        disabled={!item.available}
+                        className={item.available ? 'btn' : 'btn disabled'}
+                      >
+                        {item.available ? 'Add to Cart' : 'Sold Out'}
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </main>
+          }
+        />
+        <Route
+          path="/cart"
+          element={<CartPage cart={cart} total={getTotalPrice()} />}
+        />
+      </Routes>
+    </Router>
   )
 }
 

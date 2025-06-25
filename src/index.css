@@ -1,0 +1,62 @@
+/* Layout and Typography */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.header {
+  background: #003366;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cart-summary {
+  text-align: right;
+}
+
+/* Content */
+.main-content {
+  padding: 20px;
+}
+
+/* Product List */
+.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.product-image {
+  width: 100px;
+  height: 60px;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 12px;
+  margin-top: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
