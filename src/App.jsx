@@ -1,44 +1,35 @@
-export const initialProducts = [
-  {
-    id: 1,
-    name: 'TV',
-    price: 35000,
-    available: true,
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=200&q=80',
-  },
-  {
-    id: 2,
-    name: 'TV Stand',
-    price: 8000,
-    available: true,
-    image: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=200&q=80',
-  },
-  {
-    id: 3,
-    name: 'Mouse',
-    price: 1200,
-    available: true,
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=200&q=80',
-  },
-  {
-    id: 4,
-    name: 'Keyboard',
-    price: 2200,
-    available: false,
-    image: 'https://images.unsplash.com/photo-1519241047957-be31d7379a5d?auto=format&fit=crop&w=200&q=80',
-  },
-  {
-    id: 5,
-    name: 'System Unit',
-    price: 45000,
-    available: true,
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80',
-  },
-  {
-    id: 6,
-    name: 'Screen',
-    price: 18000,
-    available: false,
-    image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=200&q=80',
-  },
-]
+import React from 'react';
+import './index.css';
+
+const initialProducts = [
+  { id: 1, name: 'Product 1', price: '$10', available: true, image: 'https://via.placeholder.com/100' },
+  { id: 2, name: 'Product 2', price: '$20', available: false, image: 'https://via.placeholder.com/100' },
+];
+
+function ProductCard({ product }) {
+  return (
+    <li style={{ listStyle: 'none', marginBottom: '1rem', border: '1px solid #eee', padding: '1rem', borderRadius: '8px', maxWidth: 200 }}>
+      <img src={product.image} alt={product.name} width={100} />
+      <div><strong>{product.name}</strong></div>
+      <div>Price: {product.price}</div>
+      <div style={{ color: product.available ? 'green' : 'red' }}>
+        {product.available ? 'Available' : 'Out of Stock'}
+      </div>
+    </li>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>Products</h1>
+      <ul style={{ padding: 0 }}>
+        {initialProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
