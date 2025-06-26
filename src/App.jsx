@@ -1,64 +1,70 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import CartPage from './pages/CartPage'
-import './index.css'
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import CartPage from "./pages/CartPage";
+import "./index.css";
+import tv from "./assets/tv.jpg";
+import stand from "./assets/stand.jpg";
+import mouse from "./assets/mouse.jpg";
+import keyboard from "./assets/keyboard.jpg";
+import system from "./assets/system.jpg";
+import screen from "./assets/screen.jpg";
 
 const initialProducts = [
   {
     id: 1,
-    name: 'TV',
+    name: "TV",
     price: 35000,
     available: true,
-    image: 'https://via.placeholder.com/100x60?text=TV',
+    image: tv,
   },
   {
     id: 2,
-    name: 'TV Stand',
+    name: "TV Stand",
     price: 8000,
     available: true,
-    image: 'https://via.placeholder.com/100x60?text=TV+Stand',
+    image: stand,
   },
   {
     id: 3,
-    name: 'Mouse',
+    name: "Mouse",
     price: 1200,
     available: true,
-    image: 'https://via.placeholder.com/100x60?text=Mouse',
+    image: mouse,
   },
   {
     id: 4,
-    name: 'Keyboard',
+    name: "Keyboard",
     price: 2200,
     available: false,
-    image: 'https://via.placeholder.com/100x60?text=Keyboard',
+    image: keyboard,
   },
   {
     id: 5,
-    name: 'System Unit',
+    name: "System Unit",
     price: 45000,
     available: true,
-    image: 'https://via.placeholder.com/100x60?text=System+Unit',
+    image: system,
   },
   {
     id: 6,
-    name: 'Screen',
+    name: "Screen",
     price: 18000,
     available: false,
-    image: 'https://via.placeholder.com/100x60?text=Screen',
+    image: screen,
   },
-]
+];
 
 const App = () => {
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([]);
 
   const handleAddToCart = (product) => {
-    if (product.available && !cart.some(item => item.id === product.id)) {
-      setCart([...cart, product])
+    if (product.available && !cart.some((item) => item.id === product.id)) {
+      setCart([...cart, product]);
     }
-  }
+  };
 
-  const getTotalPrice = () => cart.reduce((sum, item) => sum + item.price, 0)
+  const getTotalPrice = () => cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <Router>
@@ -86,9 +92,9 @@ const App = () => {
                       <button
                         onClick={() => handleAddToCart(item)}
                         disabled={!item.available}
-                        className={item.available ? 'btn' : 'btn disabled'}
+                        className={item.available ? "btn" : "btn disabled"}
                       >
-                        {item.available ? 'Add to Cart' : 'Sold Out'}
+                        {item.available ? "Add to Cart" : "Sold Out"}
                       </button>
                     </div>
                   </li>
@@ -103,7 +109,7 @@ const App = () => {
         />
       </Routes>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;
